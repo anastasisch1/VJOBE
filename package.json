@@ -1,0 +1,22 @@
+{
+  "name": "vjobe-community",
+  "version": "1.0.0",
+  "description": "A mac desktop job application tracker inspired by the VJOBE mockups.",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build:mac": "electron-packager . \"VJOBE Community\" --platform=darwin --arch=arm64,x64 --icon=app_icon.icns --out=dist --overwrite --ignore=\"^/(?:\\.git|\\.meminisse|tests|backups|private|attachments)(?:/|$)\""
+  },
+  "keywords": [
+    "jobs",
+    "tracker",
+    "desktop",
+    "mac"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^33.2.1",
+    "electron-packager": "^17.1.2"
+  }
+}

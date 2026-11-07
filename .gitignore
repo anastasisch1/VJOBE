@@ -1,0 +1,25 @@
+node_modules/
+dist/
+.DS_Store
+.meminisse/
+.env
+.env.*
+*.log
+*.xlsx
+*.xls
+*.csv
+*.tsv
+*.pdf
+*.doc
+*.docx
+*.zip
+*.dmg
+*.app/
+src/imported-data.js
+backups/
+private/
+attachments/
+Local Storage/
+Session Storage/
+*.db
+*.sqlite*
