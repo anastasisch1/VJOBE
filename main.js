@@ -5,6 +5,7 @@ const { randomUUID } = require("crypto");
 
 // Keep community builds separate from existing personal installations.
 app.setName("VJOBE Community");
+if (process.platform === "win32") app.setAppUserModelId("com.vjobe.community");
 if (!app.commandLine.hasSwitch("user-data-dir")) {
   app.setPath("userData", path.join(app.getPath("appData"), "VJOBE Community"));
 }
@@ -37,7 +38,7 @@ ipcMain.handle("attachments:download", async (event, file) => {
 });
 
 function createWindow() {
-  const appIconPath = path.join(__dirname, "app_icon.svg");
+  const appIconPath = path.join(__dirname, "app_icon.png");
   const win = new BrowserWindow({
     width: 1512,
     height: 982,
@@ -45,8 +46,10 @@ function createWindow() {
     minHeight: 720,
     title: "VJOBE",
     backgroundColor: "#fee5a2",
-    titleBarStyle: "hiddenInset",
-    trafficLightPosition: { x: 18, y: 18 },
+    ...(process.platform === "darwin" ? {
+      titleBarStyle: "hiddenInset",
+      trafficLightPosition: { x: 18, y: 18 }
+    } : {}),
     webPreferences: {
       preload: path.join(__dirname, "preload.js"),
       contextIsolation: true,
