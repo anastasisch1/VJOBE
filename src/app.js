@@ -1,5 +1,5 @@
-const addButtonSvg = `<img class="add-button-icon" src="../Add_button.svg" alt="Add" aria-hidden="true" />`;
-const asset = (fileName, className = "icon") => `<img class="${className}" src="../${encodeURIComponent(fileName)}" alt="" />`;
+const addButtonSvg = `<img class="add-button-icon" src="../assets/Add_button.svg" alt="Add" aria-hidden="true" />`;
+const asset = (fileName, className = "icon") => `<img class="${className}" src="../assets/${encodeURIComponent(fileName)}" alt="" />`;
 
 const icons = {
   logo: asset("VJOBE_logo.svg", "brand-logo"),
@@ -199,7 +199,7 @@ function renderApplications() {
         </select>
       </label>
       <button class="add-company-button" data-add-company title="Add company card" aria-label="Add company card">
-        <img src="../Add_button.svg" alt="Add company card" />
+        <img src="../assets/Add_button.svg" alt="Add company card" />
       </button>
     </div>
     <div data-application-results>${renderApplicationResults()}</div>
@@ -457,7 +457,7 @@ function renderData() {
         </section>
       </div>
       <div class="folder-art">
-        <img class="folder-illustration" src="../folder%20illustration.svg" alt="Folder illustration" />
+        <img class="folder-illustration" src="../assets/folder%20illustration.svg" alt="Folder illustration" />
       </div>
     </section>
   `;

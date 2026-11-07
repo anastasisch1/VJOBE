@@ -27,6 +27,22 @@ The Apple Silicon and Intel apps are created in `dist/`. Builds are unsigned.
 
 On Windows, run `npm ci` followed by `npm run build:win`. The NSIS installer is created in `dist/`. `npm run test:windows` tests the packaged app in a temporary profile. GitHub Actions builds, tests and publishes the Windows installer after relevant changes on `main`.
 
+## Container Desktop
+
+Install Docker, then run:
+
+```sh
+docker compose up --build -d
+```
+
+Open [the container desktop](http://127.0.0.1:6080/vnc.html?autoconnect=1&resize=scale). This runs the Linux Electron desktop inside a virtual display, streamed by noVNC; it is not a web rewrite of VJOBE. The service is bound to localhost only and has no login screen. Do not expose port 6080 to a public network.
+
+Records and attachments live in the separate `vjobe-data` Docker volume. The container never mounts a host VJOBE profile. `docker compose down` stops it and preserves the volume; `docker compose down --volumes` deletes the container's records.
+
+Electron runs as the non-root `node` user. Chromium's nested sandbox is disabled only inside this container; the container drops Linux capabilities and prevents privilege escalation. The native Mac and Windows apps keep their existing sandbox settings.
+
+All bundled images and app icons are in `assets/`. GitHub Actions checks the native Windows build and renders the container desktop to verify the moved images.
+
 ## Local Data
 
 New installations start empty. This repository contains no personal application records, imported spreadsheets, CVs, or attachments.

@@ -13,6 +13,9 @@ async function main() {
     page.setDefaultTimeout(15000);
     const errors = [];
     page.on("pageerror", (error) => errors.push(error.message));
+    async function checkImages() {
+      await page.waitForFunction(() => Array.from(document.images).every((image) => image.complete && image.naturalWidth > 0));
+    }
     assert.equal(await fs.realpath(await desktop.evaluate(({ app }) => app.getPath("userData"))), await fs.realpath(profile));
     const initial = await page.evaluate(() => ({ applications: state.applications, saved: state.savedVacancies, events: state.events, user: state.user }));
     assert.deepEqual(initial.applications, []);
@@ -21,6 +24,7 @@ async function main() {
     assert.equal(initial.user.cv, "");
     for (const route of ["statistics", "saved", "data", "calendar", "applications"]) {
       await page.locator(`[data-route="${route}"]`).click();
+      await checkImages();
     }
     await page.locator("[data-add-company]").click();
     await page.locator('[data-app-field="company"]').fill("Synthetic Windows Test");

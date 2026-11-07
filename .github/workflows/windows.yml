@@ -9,8 +9,7 @@ on:
       - 'main.js'
       - 'preload.js'
       - 'src/**'
-      - '*.svg'
-      - 'app_icon.png'
+      - 'assets/**'
       - 'windows-smoke.cjs'
   workflow_dispatch:
 

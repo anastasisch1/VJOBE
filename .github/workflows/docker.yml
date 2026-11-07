@@ -1,0 +1,47 @@
+name: Container Desktop
+on:
+  push:
+    branches: [main]
+    paths:
+      - Dockerfile
+      - .dockerignore
+      - compose.yaml
+      - docker/**
+      - docker-smoke.cjs
+      - package*.json
+      - main.js
+      - preload.js
+      - src/**
+      - assets/**
+      - .github/workflows/docker.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  desktop:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - name: Start container desktop
+        run: docker compose up --build --detach --wait --wait-timeout 120
+      - name: Verify desktop pixels
+        run: node docker-smoke.cjs
+      - name: Save desktop screenshot
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: container-desktop
+          path: docker-smoke.png
+          if-no-files-found: ignore
+      - name: Container logs and cleanup
+        if: always()
+        run: |
+          docker compose logs
+          docker compose down --volumes

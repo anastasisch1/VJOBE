@@ -38,7 +38,7 @@ ipcMain.handle("attachments:download", async (event, file) => {
 });
 
 function createWindow() {
-  const appIconPath = path.join(__dirname, "app_icon.png");
+  const appIconPath = path.join(__dirname, "assets", "app_icon.png");
   const win = new BrowserWindow({
     width: 1512,
     height: 982,

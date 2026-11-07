@@ -1,0 +1,15 @@
+**
+!Dockerfile
+!.dockerignore
+!package.json
+!package-lock.json
+!main.js
+!preload.js
+!src/
+!src/app.js
+!src/index.html
+!src/styles.css
+!assets/
+!assets/**
+!docker/
+!docker/entrypoint.sh
